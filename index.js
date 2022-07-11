@@ -2,6 +2,7 @@ let productos = [];
 let seccionProductos = document.getElementById("productos");
 let menorAMayor = document.getElementById("menorAMayor");
 let botonBorrar = document.getElementById("borrarFiltros");
+let barraBusqueda = document.getElementById("barraBusqueda");
 
 
 class Producto{
@@ -43,9 +44,32 @@ function crearTarjetas() {
 
 crearTarjetas();
 
+barraBusqueda.addEventListener("input", () =>{
+    const capitalize = barraBusqueda.value.charAt(0).toUpperCase() + barraBusqueda.value.slice(1).toLowerCase();
+    let busqueda = [...productos].filter(elemento => elemento.nombre.includes(capitalize));
+    seccionProductos.innerHTML = "";
+    for (const filtrado of busqueda) {
+        let cardFiltrada = document.createElement("div.col");
+        cardFiltrada.innerHTML = `<div class="card h-100">
+                            <img src="${filtrado.img}" class="card-img-top" alt="${filtrado.nombre}">
+                            <div class="card-body">
+                                <h5 class="card-title">${filtrado.nombre}</h5>
+                                <p class="card-text">${filtrado.descripcion}</>
+                                <p class="card-text">$${filtrado.precio}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">${filtrado.talles}</small>
+                            </div>
+                        </div>`
+        seccionProductos.append(cardFiltrada);  
+    }
+})
+
+
+
 menorAMayor.addEventListener("click", () => {
     seccionProductos.innerHTML = "";
-    let filtro = productos.sort((a,b) => a.precio - b.precio);
+    let filtro = [...productos].sort((a,b) => a.precio - b.precio);
     for (const filtrado of filtro) {
         let cardFiltrada = document.createElement("div.col");
         cardFiltrada.innerHTML = `<div class="card h-100">
@@ -61,4 +85,9 @@ menorAMayor.addEventListener("click", () => {
                         </div>`
         seccionProductos.append(cardFiltrada);
     }
+});
+
+botonBorrar.addEventListener("click", () => {
+    seccionProductos.innerHTML = "";
+    crearTarjetas()
 });
