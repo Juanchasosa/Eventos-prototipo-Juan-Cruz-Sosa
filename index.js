@@ -11,6 +11,7 @@ const verCarrito = document.getElementById("verCarrito");
 
 
 
+
 class Producto{
     constructor (nombre, precio, talles, descripcion, img, id){
         this.nombre = nombre;
@@ -85,17 +86,17 @@ barraBusqueda.addEventListener("input", () =>{
                             alert("producto agregado al carrito");
                         });
                     };
-});
-
-
-menorAMayor.addEventListener("click", () => {
-    seccionProductos.innerHTML = "";
-    let filtro = [...productos].sort((a,b) => a.precio - b.precio);
-    for (const filtrado of filtro) {
-        let cardFiltrada = document.createElement("div.col");
-        cardFiltrada.innerHTML = `<div class="card h-100">
-                            <img src="${filtrado.img}" class="card-img-top" alt="${filtrado.nombre}">
-                            <div class="card-body">
+                });
+                
+                
+                menorAMayor.addEventListener("click", () => {
+                    seccionProductos.innerHTML = "";
+                    let filtro = [...productos].sort((a,b) => a.precio - b.precio);
+                    for (const filtrado of filtro) {
+                        let cardFiltrada = document.createElement("div.col");
+                        cardFiltrada.innerHTML = `<div class="card h-100">
+                        <img src="${filtrado.img}" class="card-img-top" alt="${filtrado.nombre}">
+                        <div class="card-body">
                                 <h5 class="card-title">${filtrado.nombre}</h5>
                                 <p class="card-text">${filtrado.descripcion}</>
                                 <p class="card-text">$${filtrado.precio}</p>
@@ -138,15 +139,15 @@ verCarrito.addEventListener("click", () => {
                         </div>`
                         seccionProductos.append(cardCarrito);
         }
-    menorAMayor.classList = "d-none";
-    botonBorrar.classList = "d-none";
-    verCarrito.classList = "d-none";
-
-    volver.classList = "btn btn-primary btn-lg";
-    volver.addEventListener("click", () =>{
-        menorAMayor.classList = "btn btn-primary btn-lg";
-        botonBorrar.classList = "btn btn-primary btn-lg";
-        verCarrito.classList = "btn btn-primary btn-lg";
+        menorAMayor.classList = "d-none";
+        botonBorrar.classList = "d-none";
+        verCarrito.classList = "d-none";
+        
+        volver.classList = "btn btn-primary btn-lg";
+        volver.addEventListener("click", () =>{
+            menorAMayor.classList = "btn btn-primary btn-lg";
+            botonBorrar.classList = "btn btn-primary btn-lg";
+            verCarrito.classList = "btn btn-primary btn-lg";
         volver.classList = "d-none";
         comprar.classList = "d-none";
 
@@ -154,15 +155,14 @@ verCarrito.addEventListener("click", () => {
         crearTarjetas();
 
     });
-
+    
     comprar.classList = "btn btn-primary btn-lg";
     comprar.addEventListener("click", () => {
-        let precioTotal = carrito.reduce((acumulador, elemento) => acumulador + elemento.precio, 0);
-        alert(`El precio total es: $${precioTotal}`);
+        let total = carrito.reduce((acumulador, elemento) => acumulador + elemento.precio, 0);  
+        alert(`El precio total es: $${total}`);
         localStorage.removeItem("carrito");
         seccionProductos.innerHTML = "";
-        crearTarjetas();
-
+        carrito.splice(0, Infinity);
     });
 
 
