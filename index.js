@@ -2,12 +2,16 @@ const productos = [];
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const volver = document.getElementById("volver");
 const comprar = document.getElementById("comprar");
+const formulario = document.getElementById("formulario");
+const pintarTotal = document.getElementById("total");
 const seccionProductos = document.getElementById("productos");
 const menorAMayor = document.getElementById("menorAMayor");
 const botonBorrar = document.getElementById("borrarFiltros");
 const barraBusqueda = document.getElementById("barraBusqueda");
-const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor)};
 const verCarrito = document.getElementById("verCarrito");
+const anioActual = new Date().getFullYear();
+const pagar = document.getElementById("pagar");
+
 
 
 
@@ -138,7 +142,8 @@ verCarrito.addEventListener("click", () => {
                             </div>
                         </div>`
                         seccionProductos.append(cardCarrito);
-        }
+        };
+    
         menorAMayor.classList = "d-none";
         botonBorrar.classList = "d-none";
         verCarrito.classList = "d-none";
@@ -153,19 +158,53 @@ verCarrito.addEventListener("click", () => {
 
         seccionProductos.innerHTML = "";
         crearTarjetas();
-
     });
     
     comprar.classList = "btn btn-primary btn-lg";
-    comprar.addEventListener("click", () => {
-        let total = carrito.reduce((acumulador, elemento) => acumulador + elemento.precio, 0);  
-        alert(`El precio total es: $${total}`);
-        localStorage.removeItem("carrito");
-        seccionProductos.innerHTML = "";
-        carrito.splice(0, Infinity);
-    });
-
-
    
 });
+
+comprar.addEventListener("click", () => {
+    let total = carrito.reduce((acumulador, elemento) => acumulador + elemento.precio, 0); 
+    pintarTotal.innerHTML = `Total: $${total}`;
+
+});
+
+// AUTOMATIZAMOS LA CREACION DE LOS MESES EN LOS OPTION DE MES
+for (let i = 1; i <= 12; i++) {
+    let opcion = document.createElement("option");
+    opcion.value = i;
+    opcion.innerText = i;
+    formulario.seleccionMes.appendChild(opcion);
+    
+};
+
+// AUTOMATIZAMOS LA CREACION DE LOS AÑOS EN LOS OPTION DE AÑO
+
+for (let i = anioActual; i < anioActual + 12; i++) {
+    let opcion = document.createElement("option");
+    opcion.value = i;
+    opcion.innerText = i;
+    formulario.seleccionAnio.appendChild(opcion);
+    
+}
+
+formulario.addEventListener("submit", (e) => {
+    let form = e.target;
+    let nombre = form.children[0].value;
+    let numeroTarjeta = form.children[1].value;
+    let mes = form.children[2].value
+    let año = form.children[3].value;
+    let clave = form.children[4].value;
+
+
+    localStorage.removeItem("carrito");
+    seccionProductos.innerHTML = "";
+    carrito.splice(0, Infinity);
+
+});
+
+   
+
+
 

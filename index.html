@@ -56,15 +56,46 @@
       <button id="borrarFiltros" type="button" class="btn btn-primary btn-lg">Borrar filtros</button>
       <button id="verCarrito" type="button" class="btn btn-primary btn-lg">Ver carrito</button>
       <button id="volver" type="button" class="btn btn-primary btn-lg d-none">Volver atrás</button>
-      <button id="comprar" type="button" class="btn btn-primary btn-lg d-none">Comprar</button>
+      <button id="comprar" type="button" class="btn btn-primary btn-lg d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</button>
       
     </div>
-    
+
     <section class="d-flex justify-content-center">
       
       <div id="productos" class="row row-cols-1 row-cols-md-3 g-4 w-75 ">  
       </div>
     </section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar transacción</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formulario" class="col-md-12" action="">                                              
+              <input required class="m-2 col-md-12 form-control-lg" type="text" name="Nombre" id="titular"  pattern="[a-zA-Z /s]{1,100}" placeholder="Nombre del titular de la tarjeta" title="Ingrese el nombre sin carácteres especiales (ej; *, &, #)">
+              <input required class="m-2 col-md-12 form-control-lg" type="text" inputmode="numeric" name="tarjeta" id="tarjeta" pattern="[0-9]{16}" placeholder="Ingrese los dígitos de la tarjeta de crédito" title="Ingrese los 16 numeros de la tarjeta sin espacios ni guiones.">
+              <select required class="form-control-lg" name="mes" id="seleccionMes">
+                <option disabled selected value="">Mes</option>
+              </select>
+              <select required class="form-control-lg" name="año" id="seleccionAnio">
+                <option disabled selected value="">Año</option>
+              </select>
+              <input required class="m-2 col-md-4 form-control-lg" type="text" inputmode="numeric" maxlength="3" name="codigo" id="codigo" placeholder="XXX">
+              <div id="" class="modal-footer">
+                <p id="total"></p>
+                <button id="pagar" type="submit" class="btn btn-primary">Pagar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+          </form> 
+        </div>
+    </div>
+  </div>
+</div>
+    
+
     
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
