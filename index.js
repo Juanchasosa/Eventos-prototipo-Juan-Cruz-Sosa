@@ -197,6 +197,7 @@ formulario.addEventListener("submit", (e) => {
     let año = form.children[3].value;
     let clave = form.children[4].value;
 
+    alert("Compra realizada con éxito")
 
     localStorage.removeItem("carrito");
     seccionProductos.innerHTML = "";
